@@ -1,8 +1,4 @@
-use bevy::{
-    core_pipeline::clear_color::ClearColorConfig,
-    prelude::*,
-    render::texture::{ImageFilterMode, ImageLoaderSettings},
-};
+use bevy::{core_pipeline::clear_color::ClearColorConfig, prelude::*};
 
 fn setup(
     mut commands: Commands,
@@ -32,7 +28,18 @@ fn main() {
     println!("Hello, world!");
 
     App::new()
-        .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
+        .add_plugins(
+            DefaultPlugins
+                .set(ImagePlugin::default_nearest())
+                .set(WindowPlugin {
+                    primary_window: Some(Window {
+                        title: "Wave Function Collapse".into(),
+                        resizable: false,
+                        ..default()
+                    }),
+                    ..default()
+                }),
+        )
         // .add_plugins(DefaultPlugins)
         .add_systems(Startup, setup)
         .run();
